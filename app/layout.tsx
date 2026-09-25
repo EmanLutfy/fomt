@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Instrument_Serif, Geist_Mono } from "next/font/google";
+import { Montserrat, Instrument_Serif, Geist_Mono, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
@@ -44,6 +44,15 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// Fallback for the hero headline on devices without Apple's SF Pro (see the
+// `hero` font family in tailwind.config.js). Only the one weight it uses.
+const inter = Inter({
+  subsets: ["latin"],
+  weight: "600",
+  variable: "--font-hero",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "FOMT: Fear Of Missing Trenches",
@@ -58,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${montserrat.variable} ${instrumentSerif.variable} ${geistMono.variable}`}
+      className={`${montserrat.variable} ${instrumentSerif.variable} ${geistMono.variable} ${inter.variable}`}
     >
       <head>
         <Script id="theme-init" strategy="beforeInteractive">

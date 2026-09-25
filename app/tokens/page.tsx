@@ -21,7 +21,7 @@ export default function TokensPage() {
       <div className={container}>
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h1 className="font-display text-2xl text-ink sm:text-3xl">Token activity</h1>
+            <h1 className="font-sans font-extrabold tracking-tight text-2xl text-ink sm:text-3xl">Token activity</h1>
             <p className="mt-1 text-sm text-ink-muted">Tokens tracked wallets have been trading on Robinhood Chain.</p>
           </div>
           <DemoDataBadge />

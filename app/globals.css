@@ -28,7 +28,9 @@
   }
 
   [data-theme="dark"] {
-    --color-bg: 17 17 17;
+    /* Same pure black the hero's scene paints (#000), so the page reads as
+       one continuous canvas from the top down. */
+    --color-bg: 0 0 0;
     --color-bg-deep: 26 26 25;
     --color-panel: 30 30 28;
     --color-surface: 30 30 28;

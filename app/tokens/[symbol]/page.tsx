@@ -35,7 +35,7 @@ export default async function TokenActivityPage({ params }: { params: Promise<{ 
         </div>
 
         <section>
-          <h2 className="mb-4 font-display text-lg text-ink">Tracked-wallet activity</h2>
+          <h2 className="mb-4 font-sans font-extrabold tracking-tight text-lg text-ink">Tracked-wallet activity</h2>
           <div className="border border-border">
             {activity.length === 0 ? (
               <EmptyState title="No recorded activity" description="No tracked wallet has traded this token yet." />

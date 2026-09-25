@@ -29,7 +29,7 @@ export function TerminalTable({ trades, latestId }: { trades: Trade[]; latestId?
             {trades.map((t) => (
               <tr
                 key={t.id}
-                className={`border-b border-border/60 hover:bg-surface ${
+                className={`border-b border-border hover:bg-surface ${
                   t.id === latestId ? "animate-row-in" : ""
                 }`}
               >

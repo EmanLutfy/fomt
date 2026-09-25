@@ -1,15 +1,15 @@
 import Link from "next/link";
 import type { Trader } from "@/types/trader";
 import { card, data } from "@/lib/ui";
-import { formatCompactUsd, truncateAddress } from "@/lib/utils";
+import { cn, formatCompactUsd, truncateAddress } from "@/lib/utils";
 import { TrackedWalletBadge } from "@/components/ui/Badge";
 
-export function TraderCard({ trader }: { trader: Trader }) {
+export function TraderCard({ trader, className }: { trader: Trader; className?: string }) {
   return (
-    <Link href={`/traders/${trader.handle}`} className={`${card} flex flex-col gap-4 p-5`}>
+    <Link href={`/traders/${trader.handle}`} className={cn(card, "flex flex-col gap-4 p-5", className)}>
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="font-display text-lg text-ink">@{trader.handle}</p>
+          <p className="font-sans text-lg font-extrabold tracking-tight text-ink">@{trader.handle}</p>
           <p className={`${data} mt-1 text-xs text-ink-dim`}>{truncateAddress(trader.address)}</p>
         </div>
         <TrackedWalletBadge />

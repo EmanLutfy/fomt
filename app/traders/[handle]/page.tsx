@@ -34,7 +34,7 @@ export default async function TraderProfilePage({ params }: { params: Promise<{ 
         <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="font-display text-2xl text-ink sm:text-3xl">@{trader.handle}</h1>
+              <h1 className="font-sans font-extrabold tracking-tight text-2xl text-ink sm:text-3xl">@{trader.handle}</h1>
               <TrackedWalletBadge />
             </div>
             <div className="mt-2">
@@ -61,14 +61,14 @@ export default async function TraderProfilePage({ params }: { params: Promise<{ 
         </div>
 
         <section className="mb-10">
-          <h2 className="mb-4 font-display text-lg text-ink">Holdings</h2>
+          <h2 className="mb-4 font-sans font-extrabold tracking-tight text-lg text-ink">Holdings</h2>
           <div className="border border-border">
             <HoldingsTable holdings={holdings} />
           </div>
         </section>
 
         <section>
-          <h2 className="mb-4 font-display text-lg text-ink">Recent activity</h2>
+          <h2 className="mb-4 font-sans font-extrabold tracking-tight text-lg text-ink">Recent activity</h2>
           <div className="border border-border">
             {activity.length === 0 ? (
               <EmptyState title="No recorded activity" description="This wallet has no tracked trades yet." />

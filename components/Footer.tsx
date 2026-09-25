@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="border-t border-border">
       <div className={`${container} flex flex-col gap-6 py-10 sm:flex-row sm:items-start sm:justify-between`}>
         <div className="flex max-w-sm flex-col gap-3">
-          <span className="font-display text-xl font-normal tracking-tight text-ink">FOMT</span>
+          <span className="font-sans text-xl font-extrabold tracking-tight text-ink">FOMT</span>
           <p className="text-sm leading-relaxed text-ink-muted">
             Fear Of Missing Trenches is a read-only intelligence terminal for Robinhood Chain. It surfaces
             what tracked wallets are doing on-chain and makes no trades on your behalf.

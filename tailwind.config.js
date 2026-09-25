@@ -56,6 +56,16 @@ module.exports = {
         display: ["var(--font-display)", "serif"],
         // Geist Mono: the skill's own suggested monospace target.
         mono: ["var(--font-mono)", "monospace"],
+        // Hero headline: Apple's SF Pro Display, which Apple devices already
+        // have as the system face (it can't be self-hosted). Everywhere else
+        // gets Inter, its closest open match, loaded in app/layout.tsx.
+        hero: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"SF Pro Display"',
+          "var(--font-hero)",
+          "sans-serif",
+        ],
       },
       maxWidth: {
         container: "1240px",

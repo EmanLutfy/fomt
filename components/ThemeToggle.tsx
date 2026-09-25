@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useReducedMotionSafe } from "@/components/scroll/useReducedMotionSafe";
 import { Moon, Sun } from "@phosphor-icons/react";
 
 const STORAGE_KEY = "fomt-theme";
@@ -12,7 +13,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
   // — that script owns avoiding the flash, this just mirrors its result so
   // the icon shown is correct.
   const [theme, setTheme] = useState<"dark" | "light">("light");
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionSafe();
 
   useEffect(() => {
     const current = document.documentElement.getAttribute("data-theme");

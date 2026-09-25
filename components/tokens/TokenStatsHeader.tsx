@@ -13,7 +13,7 @@ export function TokenStatsHeader({ token, stats }: { token: Token; stats: TokenS
   return (
     <div>
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-        <h1 className="font-display text-2xl text-ink sm:text-3xl">${token.symbol}</h1>
+        <h1 className="font-sans font-extrabold tracking-tight text-2xl text-ink sm:text-3xl">${token.symbol}</h1>
         <span className="text-sm text-ink-dim">{token.name}</span>
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-1 font-mono text-sm text-ink-muted">
