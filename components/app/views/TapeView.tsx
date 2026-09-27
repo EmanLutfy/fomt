@@ -2,9 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { ArrowUp } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
-import { useDerived, useFomoData, useSettings } from "@/components/app/FomoProvider";
+import { useDerived, useFomoData } from "@/components/app/FomoProvider";
 import {
   Card,
   Empty,
@@ -65,8 +64,7 @@ function NumberInput({
 export function TapeView() {
   const params = useSearchParams();
   const { engine, now } = useFomoData();
-  const { toggles } = useSettings();
-  const fills = useDerived((e, win, n, clean) => tapeFills(e, win, n, clean));
+  const fills = useDerived((e, win, n) => tapeFills(e, win, n));
 
   const [side, setSide] = useState<SideFilter>("all");
   const [who, setWho] = useState<WhoFilter>("all");
@@ -95,18 +93,7 @@ export function TapeView() {
     );
   }, [engine, fills, side, who, term, minSize, maxSize, minMcap]);
 
-  // Follow off: hold the list where it is and count what's arrived since.
-  const [cutoff, setCutoff] = useState<number | null>(null);
-  useEffect(() => {
-    setCutoff(toggles.follow ? null : (filtered?.[0]?.t ?? Date.now()));
-    // Only when follow flips — not on every new fill.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [toggles.follow]);
-  const visible = useMemo(
-    () => (filtered && cutoff !== null ? filtered.filter((f) => f.t <= cutoff) : filtered),
-    [filtered, cutoff],
-  );
-  const pending = filtered && visible ? filtered.length - visible.length : 0;
+  const visible = filtered;
 
   // Only rows that land after the page opened get the arrival highlight.
   const openedAt = useRef(0);
@@ -154,20 +141,10 @@ export function TapeView() {
             {visible ? `${visible.length.toLocaleString("en-US")} fills · ${usd(volume)} volume` : "Loading…"}
           </span>
           <span className="flex items-center gap-1.5">
-            <span className={cn("h-1.5 w-1.5 rounded-full", toggles.follow ? "animate-pulse-dot bg-up" : "bg-ink-dim")} />
-            {toggles.follow ? "following live" : "paused"}
+            <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-up" />
+            live
           </span>
         </div>
-
-        {pending > 0 && (
-          <button
-            type="button"
-            onClick={() => setCutoff(filtered?.[0]?.t ?? null)}
-            className="absolute left-1/2 top-14 z-20 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-ink px-3.5 py-1.5 text-[12.5px] font-medium text-bg shadow-lg"
-          >
-            <ArrowUp size={13} weight="bold" /> {pending} new fill{pending === 1 ? "" : "s"}
-          </button>
-        )}
 
         {!visible ? (
           <div className="space-y-2 p-4">

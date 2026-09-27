@@ -85,7 +85,7 @@ export function SearchBox({ className }: { className?: string }) {
   };
 
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("hb rounded-full", className)}>
       <MagnifyingGlass size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-dim" />
       <input
         ref={registerSearch}
@@ -110,7 +110,7 @@ export function SearchBox({ className }: { className?: string }) {
         }}
         placeholder="Search handle, token or wallet"
         aria-label="Search handle, token or wallet"
-        className="h-11 w-full rounded-full border border-line-strong bg-transparent pl-11 pr-12 text-[14px] text-ink placeholder:text-ink-dim focus:border-white/30 focus:outline-none"
+        className="h-11 w-full rounded-full bg-transparent pl-11 pr-12 text-[14px] text-ink placeholder:text-ink-dim focus:outline-none"
       />
       <kbd className="pointer-events-none absolute right-3.5 top-1/2 hidden -translate-y-1/2 rounded-md border border-line px-1.5 py-px text-[11px] text-ink-dim sm:block">
         /

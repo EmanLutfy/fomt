@@ -52,11 +52,17 @@ module.exports = {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        "blur-in": {
+          "0%": { opacity: "0", filter: "blur(12px)", transform: "translateY(10px)" },
+          "100%": { opacity: "1", filter: "blur(0)", transform: "translateY(0)" },
+        },
       },
       animation: {
         "row-in": "row-in 0.6s ease-out",
         "pulse-dot": "pulse-dot 1.8s ease-in-out infinite",
         shimmer: "shimmer 1.6s linear infinite",
+        // Duration/delay are set per letter inline (see BlurReveal).
+        "blur-in": "blur-in 0.6s ease-out both",
       },
     },
   },

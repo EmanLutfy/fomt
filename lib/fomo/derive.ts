@@ -6,14 +6,13 @@ import { WINDOW_MS, type ClosedTrade, type Fill, type TimeWindow, type Wallet } 
 
 export const windowStart = (win: TimeWindow, now: number) => now - WINDOW_MS[win];
 
-/** Fills inside the window, newest first. `clean` drops pre-tape sells. */
-export function tapeFills(engine: Engine, win: TimeWindow, now: number, clean: boolean): Fill[] {
+/** Fills inside the window, newest first. */
+export function tapeFills(engine: Engine, win: TimeWindow, now: number): Fill[] {
   const from = windowStart(win, now);
   const out: Fill[] = [];
   for (let i = engine.fills.length - 1; i >= 0; i--) {
     const f = engine.fills[i];
     if (f.t < from) break;
-    if (clean && f.preTape) continue;
     out.push(f);
   }
   return out;

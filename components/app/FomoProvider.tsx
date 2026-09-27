@@ -27,7 +27,7 @@ interface DataCtx {
   sessionStart: number;
 }
 
-export type Toggle = "sound" | "follow" | "clean";
+export type Toggle = "sound";
 
 interface SettingsCtx {
   window: TimeWindow;
@@ -76,7 +76,7 @@ function blip(ctx: AudioContext, side: Fill["side"]) {
 export function FomoProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<DataCtx>({ engine: null, version: 0, now: 0, sessionStart: 0 });
   const [window_, setWindow_] = useState<TimeWindow>("24h");
-  const [toggles, setToggles] = useState<Record<Toggle, boolean>>({ sound: false, follow: true, clean: false });
+  const [toggles, setToggles] = useState<Record<Toggle, boolean>>({ sound: false });
   const [status, setStatus] = useState<StatusCtx>({
     head: 0, lag: 0, eth: 0, viewers: 1, session: { volume: 0, fills: 0, startedAt: 0 }, clock: 0,
   });
@@ -103,7 +103,6 @@ export function FomoProvider({ children }: { children: ReactNode }) {
 
     const saved = readStore();
     if (saved.window && WINDOWS.includes(saved.window)) setWindow_(saved.window);
-    if (saved.toggles) setToggles((t) => ({ ...t, ...saved.toggles, sound: false }));
 
     // Live feed: a new fill every 1.5–6s.
     let timer: ReturnType<typeof setTimeout>;
@@ -174,7 +173,7 @@ export function FomoProvider({ children }: { children: ReactNode }) {
     searchEl.current = el;
   }, []);
 
-  // Keyboard: 1–5 time window, s/f/c toggles, / search, esc leaves search.
+  // Keyboard: 1–5 time window, s sound, / search, esc leaves search.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
@@ -187,8 +186,6 @@ export function FomoProvider({ children }: { children: ReactNode }) {
       const n = Number(e.key);
       if (n >= 1 && n <= 5) setWindow(WINDOWS[n - 1]);
       else if (e.key === "s") flip("sound");
-      else if (e.key === "f") flip("follow");
-      else if (e.key === "c") flip("clean");
       else if (e.key === "/") {
         e.preventDefault();
         searchEl.current?.focus();
@@ -226,15 +223,15 @@ export const useStatus = () => need(useContext(Status), "useStatus");
  * until the engine has been built on the client.
  */
 export function useDerived<T>(
-  fn: (engine: Engine, win: TimeWindow, now: number, clean: boolean) => T,
+  fn: (engine: Engine, win: TimeWindow, now: number) => T,
   extraDeps: unknown[] = [],
 ): T | null {
   const { engine, version, now } = useFomoData();
-  const { window: win, toggles } = useSettings();
+  const { window: win } = useSettings();
   return useMemo(
-    () => (engine ? fn(engine, win, now, toggles.clean) : null),
+    () => (engine ? fn(engine, win, now) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [engine, version, win, toggles.clean, ...extraDeps],
+    [engine, version, win, ...extraDeps],
   );
 }
 

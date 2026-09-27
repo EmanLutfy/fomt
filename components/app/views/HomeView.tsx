@@ -14,6 +14,7 @@ import {
 } from "@/components/app/ui";
 import { Odometer, Sparkline } from "@/components/app/Odometer";
 import { TokenArt } from "@/components/app/TokenArt";
+import { BlurReveal } from "@/components/app/BlurReveal";
 import { TraderAvatar } from "@/components/traders/TraderAvatar";
 import { ClosedCard } from "@/components/app/views/ClosedView";
 import { AvatarStack, TokenCard } from "@/components/app/views/TokensView";
@@ -25,11 +26,13 @@ function Hero() {
   return (
     <section className="mx-auto max-w-[760px] pb-10 pt-6 text-center sm:pt-10">
       <h1 className="text-balance text-[2.6rem] font-medium leading-[1.05] tracking-[-0.045em] sm:text-[3.75rem]">
-        Every trade by the wallets that move first
+        <BlurReveal delay={0.15}>Every trade by the wallets that move first</BlurReveal>
       </h1>
       <p className="mx-auto mt-4 max-w-[560px] text-balance text-[16px] leading-relaxed text-ink-dim sm:text-[17px]">
-        {ROSTER_SIZE} tracked trader and KOL wallets on Robinhood Chain — what they buy, what they sell, and who&apos;s actually
-        making money. Read-only, as it lands.
+        {/* A line break instead of punctuation between the two halves. */}
+        Tracked trader and KOL wallets
+        <br />
+        what they buy, what they sell, and who&apos;s actually making money.
       </p>
       <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
         <Link href="/tape" className="rounded-full bg-ink px-5 py-2.5 text-[14px] font-medium text-bg transition-transform active:scale-[0.97]">
@@ -48,7 +51,7 @@ function Hero() {
 
 function TapePreview() {
   const { engine, now } = useFomoData();
-  const fills = useDerived((e, win, n, clean) => tapeFills(e, "all", n, clean).slice(0, 5));
+  const fills = useDerived((e, win, n) => tapeFills(e, "all", n).slice(0, 5));
   return (
     <PreviewCard label="Live Tape" href="/tape" className="h-[300px]">
       <div className="space-y-2 p-3 [mask-image:linear-gradient(to_bottom,black_70%,transparent)]">
@@ -296,7 +299,7 @@ function MostProfitable() {
 
 function RecentBuyersStrip() {
   const { engine, now } = useFomoData();
-  const buys = useDerived((e, win, n) => tapeFills(e, "all", n, true).filter((f) => f.side === "buy").slice(0, 10));
+  const buys = useDerived((e, win, n) => tapeFills(e, "all", n).filter((f) => f.side === "buy").slice(0, 10));
   if (!buys || !engine || !buys.length) return <div className="mb-8 h-6" />;
   const last = buys[0];
   return (

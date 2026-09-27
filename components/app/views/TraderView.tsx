@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Check, Copy } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
-import { useFomoData, useSettings } from "@/components/app/FomoProvider";
+import { useFomoData } from "@/components/app/FomoProvider";
 import {
   Card,
   CheckBadge,
@@ -58,7 +58,6 @@ function Stat({ label, children }: { label: string; children: React.ReactNode })
 
 export function TraderView({ id }: { id: string }) {
   const { engine, version, now } = useFomoData();
-  const { toggles } = useSettings();
 
   const view = useMemo(() => {
     if (!engine) return undefined;
@@ -93,7 +92,7 @@ export function TraderView({ id }: { id: string }) {
 
   const w = view.wallet;
   const hue = hashHue(w.address);
-  const fills = toggles.clean ? view.fills.filter((f) => !f.preTape) : view.fills;
+  const fills = view.fills;
 
   return (
     <div>

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/app/Sidebar";
 import { TopBar } from "@/components/app/TopBar";
+import { usePageScrollFlag } from "@/components/app/usePageScrollFlag";
 
 const COLLAPSE_KEY = "fomotrenches:sidebar";
 
@@ -18,6 +19,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1");
     } catch {}
   }, []);
+
+  usePageScrollFlag();
 
   // Close the phone drawer on navigation.
   useEffect(() => setMobileOpen(false), [pathname]);

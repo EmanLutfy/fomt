@@ -1,6 +1,6 @@
 "use client";
 
-import { Broom, List, Pulse, SpeakerHigh, SpeakerSlash } from "@phosphor-icons/react";
+import { List, SpeakerHigh, SpeakerSlash } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { useSettings, type Toggle } from "@/components/app/FomoProvider";
 import { SearchBox } from "@/components/app/SearchBox";
@@ -12,7 +12,7 @@ const WINDOW_LABEL = { "1h": "1H", "24h": "24H", "7d": "7D", "30d": "30D", all: 
 function WindowPills() {
   const { window: win, setWindow } = useSettings();
   return (
-    <div className="flex items-center rounded-full border border-line-strong p-1" role="group" aria-label="Time window">
+    <div className="hb flex items-center rounded-full border border-line-strong p-1" role="group" aria-label="Time window">
       {WINDOWS.map((w, i) => (
         <button
           key={w}
@@ -34,8 +34,6 @@ function WindowPills() {
 
 const TOGGLES: { key: Toggle; label: string; hint: string }[] = [
   { key: "sound", label: "Sound", hint: "Play a tick when a fill lands (key s)" },
-  { key: "follow", label: "Follow", hint: "Keep the tape pinned to the newest fill (key f)" },
-  { key: "clean", label: "Clean", hint: "Hide pre-tape sells (key c)" },
 ];
 
 function ToggleButtons() {
@@ -44,7 +42,7 @@ function ToggleButtons() {
     <div className="flex items-center gap-1">
       {TOGGLES.map(({ key, label, hint }) => {
         const on = toggles[key];
-        const Icon = key === "sound" ? (on ? SpeakerHigh : SpeakerSlash) : key === "follow" ? Pulse : Broom;
+        const Icon = on ? SpeakerHigh : SpeakerSlash;
         return (
           <button
             key={key}

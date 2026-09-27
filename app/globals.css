@@ -28,11 +28,71 @@
   }
 }
 
+/* ---- Hover border gradient (.hb) -------------------------------------
+   A white glow that travels around the element's border — bottom, left,
+   top, right, one second per side — and turns into a blue glow on hover.
+   Same gradients as the shadcn HoverBorderGradient, but pure CSS: the ring is
+   a masked ::before on its own layer, so animating it repaints only that thin
+   ring (not the card's content), with no JS timer per element. The element's
+   own border is replaced by the ring's base colour. */
+@property --hb-x { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+@property --hb-y { syntax: "<percentage>"; inherits: false; initial-value: 100%; }
+@property --hb-w { syntax: "<percentage>"; inherits: false; initial-value: 20.7%; }
+@property --hb-h { syntax: "<percentage>"; inherits: false; initial-value: 50%; }
+@property --hb-white { syntax: "<number>"; inherits: false; initial-value: 1; }
+@property --hb-blue { syntax: "<number>"; inherits: false; initial-value: 0; }
+
+@keyframes hb-orbit {
+  0%, 100% { --hb-x: 50%; --hb-y: 100%; --hb-w: 20.7%; --hb-h: 50%; }
+  25% { --hb-x: 0%; --hb-y: 50%; --hb-w: 16.6%; --hb-h: 43.1%; }
+  50% { --hb-x: 50%; --hb-y: 0%; --hb-w: 20.7%; --hb-h: 50%; }
+  75% { --hb-x: 100%; --hb-y: 50%; --hb-w: 16.2%; --hb-h: 41.2%; }
+}
+
+@layer components {
+  .hb {
+    position: relative;
+    isolation: isolate;
+    border-width: 0 !important;
+  }
+  .hb::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(75% 181% at 50% 50%, rgb(50 117 248 / var(--hb-blue)) 0%, rgb(50 117 248 / 0) 100%),
+      radial-gradient(var(--hb-w) var(--hb-h) at var(--hb-x) var(--hb-y), rgb(255 255 255 / var(--hb-white)) 0%, rgb(255 255 255 / 0) 100%),
+      linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+    /* Show only the 1px ring: full box minus the content box. */
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: hb-orbit 4s linear infinite;
+    transition: --hb-white 0.5s linear, --hb-blue 0.5s linear;
+    transform: translateZ(0);
+  }
+  .hb:hover::before,
+  .hb:focus-within::before {
+    --hb-white: 0;
+    --hb-blue: 1;
+  }
+  /* Hold still while the page scrolls (flag set in AppShell). */
+  [data-page-scrolling] .hb::before {
+    animation-play-state: paused;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
