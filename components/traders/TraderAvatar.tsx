@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 // Placeholder profile pictures for the demo wallets: a small illustrated face
@@ -28,9 +29,11 @@ const pick = (h: number, shift: number, range: number) =>
 export function TraderAvatar({
   handle,
   className,
+  style,
 }: {
   handle: string;
   className?: string;
+  style?: CSSProperties;
 }) {
   const h = hash(handle);
   const bg = PALETTE[h % PALETTE.length];
@@ -49,6 +52,7 @@ export function TraderAvatar({
       viewBox="0 0 36 36"
       aria-hidden="true"
       className={cn("shrink-0 overflow-hidden rounded-full", className)}
+      style={style}
     >
       <rect width="36" height="36" fill={bg} />
       <g transform={`translate(${dx} ${dy}) rotate(${tilt} 18 18)`}>

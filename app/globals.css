@@ -3,79 +3,28 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light is the default now — the installed "minimalist-ui" skill is a
-     light, warm-monochrome editorial protocol ("Canvas: Pure White or Warm
-     Bone/Off-White"), not a dark-first one. Dark stays as an explicit
-     opt-in, extrapolating the same philosophy (off-black canvas, brightened
-     pastels for contrast) since the skill itself doesn't define a dark mode. */
-  :root,
-  [data-theme="light"] {
-    --color-bg: 251 251 250;
-    --color-bg-deep: 247 246 243;
-    --color-panel: 255 255 255;
-    --color-surface: 255 255 255;
-    --color-surface-hover: 242 241 238;
-    --color-border-base: 0 0 0;
-    --color-ink: 17 17 17;
-    /* The skill's own literal secondary-text value (#787774) sits at 4.3:1
-       on this canvas, just under AA (4.5:1) — darkened slightly to clear it. */
-    --color-ink-muted: 110 109 106;
-    --color-ink-dim: 110 109 106;
-    --color-accent: 31 108 159;
-    --color-accent-bright: 20 84 128;
-    --color-buy: 52 101 56;
-    --color-sell: 159 47 45;
-  }
-
-  [data-theme="dark"] {
-    /* Same pure black the hero's scene paints (#000), so the page reads as
-       one continuous canvas from the top down. */
-    --color-bg: 0 0 0;
-    --color-bg-deep: 26 26 25;
-    --color-panel: 30 30 28;
-    --color-surface: 30 30 28;
-    --color-surface-hover: 38 38 36;
-    --color-border-base: 255 255 255;
-    --color-ink: 247 246 243;
-    --color-ink-muted: 168 166 160;
-    --color-ink-dim: 140 138 133;
-    --color-accent: 127 196 238;
-    --color-accent-bright: 165 216 247;
-    --color-buy: 127 201 138;
-    --color-sell: 240 135 135;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
   html {
-    scroll-behavior: smooth;
+    color-scheme: dark;
+    background: #0a0a0a;
   }
   body {
-    background-color: rgb(var(--color-bg));
-    color: rgb(var(--color-ink));
-    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    background: #0a0a0a;
+    color: #fafafa;
+    font-family: var(--font-sans), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-    line-height: 1.6;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    font-feature-settings: "cv11", "ss01";
   }
   ::selection {
-    background: rgb(var(--color-accent) / 0.2);
-  }
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-display), serif;
-    /* The skill's own spec for the editorial serif: -0.02em to -0.04em
-       tracking, 1.1 line-height. */
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    font-weight: 400;
+    background: rgba(255, 255, 255, 0.18);
   }
   :focus-visible {
-    outline: 2px solid rgb(var(--color-accent));
+    outline: 2px solid rgba(255, 255, 255, 0.7);
     outline-offset: 2px;
+  }
+  /* Thin, dark scrollbars for the scrollable panels. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
   }
 }
 
@@ -84,20 +33,20 @@
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
-    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
 }

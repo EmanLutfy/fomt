@@ -1,19 +1,14 @@
 import Link from "next/link";
-import { btnPrimary, container, sectionPad } from "@/lib/ui";
 
 export default function NotFound() {
   return (
-    <div className={`${sectionPad} flex flex-col items-center pt-24 text-center`}>
-      <div className={container}>
-        <p className="font-mono text-sm uppercase tracking-[0.2em] text-ink-dim">404</p>
-        <h1 className="mt-3 font-sans font-extrabold tracking-tight text-2xl text-ink sm:text-3xl">Nothing tracked here</h1>
-        <p className="mx-auto mt-3 max-w-sm text-sm text-ink-muted">
-          That wallet, token, or page isn&apos;t part of FOMT&apos;s tracked dataset.
-        </p>
-        <Link href="/terminal" className={`${btnPrimary} mt-8`}>
-          Open the terminal
-        </Link>
-      </div>
+    <div className="mx-auto max-w-md py-24 text-center">
+      <p className="text-[13px] uppercase tracking-[0.1em] text-ink-dim">404</p>
+      <h1 className="mt-3 text-[2rem] font-medium tracking-[-0.03em]">Nothing on the tape here</h1>
+      <p className="mt-2 text-ink-dim">That page doesn&apos;t exist. The live tape is still running though.</p>
+      <Link href="/tape" className="mt-6 inline-block rounded-full bg-ink px-5 py-2.5 text-[14px] font-medium text-bg">
+        Open the live tape
+      </Link>
     </div>
   );
 }
